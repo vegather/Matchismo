@@ -7,25 +7,44 @@
 //
 
 #import "CardGameViewController.h"
+#import "Card.h"
 #import "PlayingCard.h"
 #import "PlayingCardDeck.h"
 
 @interface CardGameViewController ()
+
+//Label
 @property (weak, nonatomic) IBOutlet UILabel *flipsLabel;
 @property (nonatomic) int flipCount;
-@property (strong, nonatomic) PlayingCardDeck *deckOfPlayingCards;
-@property (weak, nonatomic) IBOutlet UIButton *myCard;
+
+//Deck
+@property (strong, nonatomic) Deck *deck;
+
+//Card Buttons
+@property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *cardButtons;
+
 @end
+
 
 @implementation CardGameViewController
 
-- (PlayingCardDeck *)deckOfPlayingCards
+- (Deck *)deck
 {
-    if (!_deckOfPlayingCards)
+    if (!_deck)
     {
-        _deckOfPlayingCards = [[PlayingCardDeck alloc]init];
+        _deck = [[PlayingCardDeck alloc]init];
     }
-    return _deckOfPlayingCards;
+    return _deck;
+}
+
+- (void)setCardButtons:(NSArray *)cardButtons
+{
+    _cardButtons = cardButtons;
+    for (UIButton *cardButton in self.cardButtons)
+    {
+        Card *card = [self.deck drawRandomCard];
+        [cardButton setTitle:card.content forState:UIControlStateSelected];
+    }
 }
 
 - (void)setFlipCount:(int)flipCount
@@ -39,11 +58,12 @@
     //If NOT selected
     if (sender.isSelected == NO)
     {
+        /*
         sender.selected = YES;
         PlayingCard *currentCard = [self.deckOfPlayingCards drawRandomCard];
         [self.myCard setTitle:currentCard.content forState:UIControlStateSelected];
         [self.deckOfPlayingCards addCard:currentCard atTop:YES];
-        self.flipCount++;
+        self.flipCount++;*/
     }
     else
     {
