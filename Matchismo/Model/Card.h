@@ -10,4 +10,6 @@
 
 @interface Card : NSObject
 
+@property (strong, nonatomic) NSString *contents;
+
 @end
