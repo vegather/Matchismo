@@ -14,9 +14,19 @@
 @property (weak, nonatomic) IBOutlet UILabel *flipsLabel;
 @property (nonatomic) int flipCount;
 @property (strong, nonatomic) PlayingCardDeck *deckOfPlayingCards;
+@property (weak, nonatomic) IBOutlet UIButton *myCard;
 @end
 
 @implementation CardGameViewController
+
+- (PlayingCardDeck *)deckOfPlayingCards
+{
+    if (!_deckOfPlayingCards)
+    {
+        _deckOfPlayingCards = [[PlayingCardDeck alloc]init];
+    }
+    return _deckOfPlayingCards;
+}
 
 - (void)setFlipCount:(int)flipCount
 {
@@ -26,9 +36,19 @@
 
 - (IBAction)flipCard:(UIButton *)sender
 {
-    
-    sender.selected = !sender.isSelected;
-    self.flipCount++;
+    //If NOT selected
+    if (sender.isSelected == NO)
+    {
+        sender.selected = YES;
+        PlayingCard *currentCard = [self.deckOfPlayingCards drawRandomCard];
+        [self.myCard setTitle:currentCard.content forState:UIControlStateSelected];
+        [self.deckOfPlayingCards addCard:currentCard atTop:YES];
+        self.flipCount++;
+    }
+    else
+    {
+        sender.selected = NO;
+    }
 }
 
 @end

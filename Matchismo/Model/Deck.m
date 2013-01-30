@@ -23,7 +23,7 @@
     return _cards;
 }
 
-- (void)addCard:(Card *)card atTop:(BOOL)atTop
+- (void)addCard:(id)card atTop:(BOOL)atTop
 {
     if (atTop)
     {
@@ -35,9 +35,9 @@
     }
 }
 
-- (Card *)drawRandomCard
+- (id )drawRandomCard
 {
-    Card *randomCard;
+    id randomCard;
     
     if (self.cards.count)
     {
