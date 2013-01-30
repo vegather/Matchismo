@@ -10,4 +10,14 @@
 
 @implementation Deck
 
+- (void)addCard:(Card *)card atTop:(BOOL)atTop
+{
+    
+}
+
+- (Card *)drawRandomCard
+{
+    return [[Card alloc]init];
+}
+
 @end
