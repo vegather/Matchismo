@@ -11,6 +11,8 @@
 @implementation PlayingCard
 @synthesize suit = _suit;
 
+#pragma mark - Acessor Methods
+
 - (void)setSuit:(NSString *)suit
 {
     if ([[PlayingCard validSuits] containsObject:suit])
@@ -32,11 +34,15 @@
     }
 }
 
+#pragma mark - Instance Methods
+
 - (NSString *)content
 {
     NSArray *rankStrings = [PlayingCard rankStrings];
     return [rankStrings[self.rank] stringByAppendingString:self.suit];
 }
+
+#pragma mark - Class Methods
 
 + (NSArray *)validSuits
 {
