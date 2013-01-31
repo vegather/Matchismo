@@ -10,4 +10,16 @@
 
 @implementation CardMatchingGame
 
+- (void)flipCardAtIndex:(NSUInteger)index
+{
+    
+}
+
+- (Card *)cardAtIndex:(NSUInteger)index
+{
+    Card *myCard = [[Card alloc]init];
+    
+    return myCard;
+}
+
 @end

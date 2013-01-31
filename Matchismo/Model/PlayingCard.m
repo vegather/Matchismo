@@ -11,7 +11,7 @@
 @implementation PlayingCard
 @synthesize suit = _suit;
 
-#pragma mark - Acessor Methods
+#pragma mark - Accessor Methods
 
 - (void)setSuit:(NSString *)suit
 {
