@@ -105,7 +105,8 @@
                         int scoreThisMatch = matchScore * MATCH_BONUS;
                         self.score += scoreThisMatch;
                         self.messageFromMatch =[NSString
-                                stringWithFormat:@"Matched %@ and %@ for %d points", card.content, otherCard.content, scoreThisMatch];
+                                stringWithFormat:@"Matched %@ and %@ for\r\n%d points.",
+                                        otherCard.content, card.content, scoreThisMatch];
                     }
                     //If the card didn't match
                     else
@@ -113,8 +114,8 @@
                         otherCard.faceUp = NO;
                         self.score -= MISMATCH_PENALTY;
                         self.messageFromMatch =[NSString
-                                stringWithFormat:@"%@ and %@ don't match. %d points penalty!",
-                                        card.content, otherCard.content, MISMATCH_PENALTY];
+                                stringWithFormat:@"%@ and %@ don't match.\r\n%d points penalty!",
+                                        otherCard.content, card.content, MISMATCH_PENALTY];
                     }
                     //When we have a match we don't care about the other cards
                     //More than two playable cards can't be selected anyways.
