@@ -8,10 +8,13 @@
 
 #import <Foundation/Foundation.h>
 #import "Card.h"
+#import "Deck.h"
 
 @interface CardMatchingGame : NSObject
 
-- (id)initWithCardCount:(NSUInteger)count;
+//Designated Initializer
+- (id)initWithCardCount:(NSUInteger)count usingDeck:(Deck *)deck;
+
 - (void)flipCardAtIndex:(NSUInteger)index;
 - (Card *)cardAtIndex:(NSUInteger)index;
 
