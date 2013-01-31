@@ -61,7 +61,19 @@
 
 - (void)flipCardAtIndex:(NSUInteger)index
 {
+    Card *card = [self cardAtIndex:index];
     
+    if (card && !card.isUnplayable)
+    {
+        for (Card *otherCard in self.cards)
+        {
+            if (otherCard.isFaceUp && !otherCard.isUnplayable)
+            {
+                
+            }
+        }
+        card.faceUp = !card.faceUp;
+    }
 }
 
 - (Card *)cardAtIndex:(NSUInteger)index
