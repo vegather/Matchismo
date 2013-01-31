@@ -66,7 +66,7 @@
 
 - (Card *)cardAtIndex:(NSUInteger)index
 {
-    if (index < self.cards.count)
+    if (index < [self.cards count])
     {
         return self.cards[index];
     }

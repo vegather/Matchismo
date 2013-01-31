@@ -23,7 +23,14 @@
 
 - (NSString *)suit
 {
-    return _suit ? _suit : @"?";
+    if (_suit)
+    {
+        return _suit;
+    }
+    else
+    {
+        return @"?";
+    }
 }
 
 - (void)setRank:(NSUInteger)rank
