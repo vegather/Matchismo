@@ -313,7 +313,6 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <connections>
-                        <outlet property="dealButton" destination="Kwh-jp-nve" id="UIK-q4-16W"/>
                         <outlet property="flipsLabel" destination="gQ1-0Z-P7u" id="sXx-Kz-Hzf"/>
                         <outlet property="messageFromComparisonLabel" destination="XtD-GQ-Wcz" id="05Q-dg-IOd"/>
                         <outlet property="scoreLabel" destination="uaq-RO-dgH" id="dqc-6z-FAW"/>
@@ -340,6 +339,19 @@
             <point key="canvasLocation" x="519" y="229"/>
         </scene>
     </scenes>
+    <classes>
+        <class className="CardGameViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CardGameViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="flipCard:" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="dealButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="flipsLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="messageFromComparisonLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="scoreLabel" candidateClass="UILabel"/>
+                <relationship kind="outletCollection" name="cardButtons" candidateClass="UIButton"/>
+            </relationships>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

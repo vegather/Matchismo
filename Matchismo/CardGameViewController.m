@@ -20,7 +20,6 @@
 
 //Buttons
 @property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *cardButtons;
-@property (weak, nonatomic) IBOutlet UIButton *dealButton;
 
 //The Game
 @property (strong, nonatomic) CardMatchingGame *game;
