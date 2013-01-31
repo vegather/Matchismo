@@ -102,7 +102,10 @@
                     {
                         card.unPlayable = YES;
                         otherCard.unPlayable = YES;
-                        self.score += matchScore * MATCH_BONUS;
+                        int scoreThisMatch = matchScore * MATCH_BONUS;
+                        self.score += scoreThisMatch;
+                        self.statusOfComparison =[NSString
+                                stringWithFormat:@"Matched %@ & %@ for %d points", card.content, otherCard.content, scoreThisMatch];
                     }
                     //If the card didn't match
                     else
