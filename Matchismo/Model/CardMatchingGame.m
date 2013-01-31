@@ -66,9 +66,14 @@
 
 - (Card *)cardAtIndex:(NSUInteger)index
 {
-    Card *myCard = [[Card alloc]init];
-    
-    return myCard;
+    if (index < self.cards.count)
+    {
+        return self.cards[index];
+    }
+    else
+    {
+        return nil;
+    }
 }
 
 @end
