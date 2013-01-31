@@ -7,9 +7,8 @@
 //
 
 #import "CardGameViewController.h"
-#import "Card.h"
-#import "PlayingCard.h"
 #import "PlayingCardDeck.h"
+#import "CardMatchingGame.h"
 
 @interface CardGameViewController ()
 
@@ -17,26 +16,27 @@
 @property (weak, nonatomic) IBOutlet UILabel *flipsLabel;
 @property (nonatomic) int flipCount;
 
-//Deck
-@property (strong, nonatomic) Deck *deck;
-
 //Card Buttons
 @property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *cardButtons;
+
+//The Game
+@property (strong, nonatomic) CardMatchingGame *game;
 
 @end
 
 
 @implementation CardGameViewController
-
+{}
 #pragma mark - Getter
 
-- (Deck *)deck
+- (CardMatchingGame *)game
 {
-    if (!_deck)
+    if (_game)
     {
-        _deck = [[PlayingCardDeck alloc]init];
+        _game = [[CardMatchingGame alloc]initWithCardCount:[self.cardButtons count]
+                                                 usingDeck:[[PlayingCardDeck alloc]init]];
     }
-    return _deck;
+    return _game;
 }
 
 #pragma mark - Setters
@@ -44,17 +44,23 @@
 - (void)setCardButtons:(NSArray *)cardButtons
 {
     _cardButtons = cardButtons;
-    for (UIButton *cardButton in self.cardButtons)
-    {
-        Card *card = [self.deck drawRandomCard];
-        [cardButton setTitle:card.content forState:UIControlStateSelected];
-    }
+    [self updateUI];
+//    for (UIButton *cardButton in self.cardButtons)
+//    {
+//        Card *card = [self.deck drawRandomCard];
+//        [cardButton setTitle:card.content forState:UIControlStateSelected];
+//    }
 }
 
 - (void)setFlipCount:(int)flipCount
 {
     _flipCount = flipCount;
     self.flipsLabel.text = [NSString stringWithFormat:@"Flips: %d", self.flipCount];
+}
+
+- (void)updateUI
+{
+    
 }
 
 #pragma mark - IBAction
