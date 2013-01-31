@@ -82,7 +82,10 @@
 - (IBAction)flipCard:(UIButton *)sender
 {
     [self.game flipCardAtIndex:[self.cardButtons indexOfObject:sender]];
-    self.flipCount++;
+    if (sender.selected == NO)
+    {
+        self.flipCount++;
+    }
     [self updateUI];
 }
 
