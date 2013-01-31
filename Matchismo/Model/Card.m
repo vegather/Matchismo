@@ -16,7 +16,7 @@
     
     for (Card *card in otherCards)
     {
-        if ([card.contents isEqualToString:self.contents])
+        if ([card.content isEqualToString:self.content])
         {
             score = 1;
         }
