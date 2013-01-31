@@ -10,7 +10,7 @@
 
 @interface CardMatchingGame ()
 @property (nonatomic, readwrite) int score;
-@property (nonatomic, readwrite) NSString *statusOfComparison;
+@property (nonatomic, readwrite) NSString *messageFromMatch;
 @property (strong, nonatomic) NSMutableArray *cards; //of Card
 @end
 
@@ -104,7 +104,7 @@
                         otherCard.unPlayable = YES;
                         int scoreThisMatch = matchScore * MATCH_BONUS;
                         self.score += scoreThisMatch;
-                        self.statusOfComparison =[NSString
+                        self.messageFromMatch =[NSString
                                 stringWithFormat:@"Matched %@ & %@ for %d points", card.content, otherCard.content, scoreThisMatch];
                     }
                     //If the card didn't match
@@ -112,6 +112,9 @@
                     {
                         otherCard.faceUp = NO;
                         self.score -= MISMATCH_PENALTY;
+                        self.messageFromMatch =[NSString
+                                stringWithFormat:@"%@ & %@ don't match. %d points penalty!",
+                                        card.content, otherCard.content, MISMATCH_PENALTY];
                     }
                     //When we have a match we don't care about the other cards
                     //More than two playable cards can't be selected anyways.
@@ -124,7 +127,7 @@
                     //Will probably start of with this message, but if one of the
                     //otherCards are faced up and playable, one of other messages
                     //will be used.
-                    self.statusOfComparison = [NSString
+                    self.messageFromMatch = [NSString
                                                stringWithFormat:@"Flipped up %@", card.content];
                 }
             }

@@ -85,6 +85,7 @@
     if (sender.selected == NO)
     {
         self.flipCount++;
+        NSLog(@"%@", self.game.messageFromMatch);
     }
     [self updateUI];
 }

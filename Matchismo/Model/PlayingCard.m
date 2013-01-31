@@ -62,7 +62,7 @@
         }
         else if (otherCard.rank == self.rank)
         {
-            score = 4;
+            score = 2;
         }
     }
     return score;
