@@ -8,7 +8,16 @@
 
 #import "CardMatchingGame.h"
 
+@interface CardMatchingGame ()
+@property (readwrite, nonatomic) int score;
+@end
+
 @implementation CardMatchingGame
+
+- (id)initWithCardCount:(NSUInteger)count
+{
+    
+}
 
 - (void)flipCardAtIndex:(NSUInteger)index
 {

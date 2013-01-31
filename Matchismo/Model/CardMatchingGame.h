@@ -11,8 +11,8 @@
 
 @interface CardMatchingGame : NSObject
 
+- (id)initWithCardCount:(NSUInteger)count;
 - (void)flipCardAtIndex:(NSUInteger)index;
-
 - (Card *)cardAtIndex:(NSUInteger)index;
 
 @property (nonatomic, readonly) int score;
