@@ -90,5 +90,9 @@
     }
     [self updateUI];
 }
+- (IBAction)dealButtonPressed
+{
+    
+}
 
 @end
