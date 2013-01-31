@@ -35,9 +35,9 @@
     }
 }
 
-- (id )drawRandomCard
+- (Card *)drawRandomCard
 {
-    id randomCard;
+    Card *randomCard;
     
     if (self.cards.count)
     {
