@@ -84,7 +84,7 @@
     //If there is a card at the index, and it is playable
     if (card && card.isUnplayable == NO)
     {
-        //We only want to do things if it is NOT? faced up
+        //We only want to do things if card is GETTING flipped up
         if (card.isFaceUp == NO)
         {
             //Loop through all our cards
@@ -133,6 +133,11 @@
             }
             //Flipping a card costs a point only if card is faced up
             self.score -= FLIP_COST;
+        }
+        //If card is getting flipped back down
+        else
+        {
+            self.messageFromMatch = @"";
         }
         //The card will be flipped to the opposite of the
         //state it's currently in

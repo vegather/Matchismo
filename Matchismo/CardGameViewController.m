@@ -12,10 +12,11 @@
 
 @interface CardGameViewController ()
 
-//Label
+//Labels
 @property (weak, nonatomic) IBOutlet UILabel *flipsLabel;
 @property (nonatomic) int flipCount;
 @property (weak, nonatomic) IBOutlet UILabel *scoreLabel;
+@property (weak, nonatomic) IBOutlet UILabel *messageFromComparisonLabel;
 
 //Card Buttons
 @property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *cardButtons;
@@ -74,6 +75,7 @@
             cardButton.alpha = 1.0;
         }
     }
+    self.messageFromComparisonLabel.text = self.game.messageFromMatch;
     self.scoreLabel.text = [NSString stringWithFormat:@"Score: %d", self.game.score];
 }
 
@@ -85,7 +87,6 @@
     if (sender.selected == NO)
     {
         self.flipCount++;
-        NSLog(@"%@", self.game.messageFromMatch);
     }
     [self updateUI];
 }

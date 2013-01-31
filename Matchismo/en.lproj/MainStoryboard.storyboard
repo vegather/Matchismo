@@ -282,8 +282,8 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="XtD-GQ-Wcz">
-                                <rect key="frame" x="20" y="392" width="280" height="50"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="XtD-GQ-Wcz">
+                                <rect key="frame" x="20" y="372" width="280" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -294,6 +294,7 @@
                     </view>
                     <connections>
                         <outlet property="flipsLabel" destination="gQ1-0Z-P7u" id="sXx-Kz-Hzf"/>
+                        <outlet property="messageFromComparisonLabel" destination="XtD-GQ-Wcz" id="05Q-dg-IOd"/>
                         <outlet property="scoreLabel" destination="uaq-RO-dgH" id="dqc-6z-FAW"/>
                         <outletCollection property="cardButtons" destination="pGV-s4-Ewm" id="Zf3-lh-93G"/>
                         <outletCollection property="cardButtons" destination="b6P-mv-MTu" id="FTX-6T-Wpw"/>
@@ -324,6 +325,7 @@
             <relationships>
                 <relationship kind="action" name="flipCard:" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="flipsLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="messageFromComparisonLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="scoreLabel" candidateClass="UILabel"/>
                 <relationship kind="outletCollection" name="cardButtons" candidateClass="UIButton"/>
             </relationships>
