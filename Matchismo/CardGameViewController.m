@@ -28,6 +28,8 @@
 
 @implementation CardGameViewController
 
+#pragma mark - Getter
+
 - (Deck *)deck
 {
     if (!_deck)
@@ -37,12 +39,14 @@
     return _deck;
 }
 
+#pragma mark - Setters
+
 - (void)setCardButtons:(NSArray *)cardButtons
 {
     _cardButtons = cardButtons;
     for (UIButton *cardButton in self.cardButtons)
     {
-        PlayingCard *card = [self.deck drawRandomCard];
+        Card *card = [self.deck drawRandomCard];
         [cardButton setTitle:card.content forState:UIControlStateSelected];
     }
 }
@@ -53,22 +57,27 @@
     self.flipsLabel.text = [NSString stringWithFormat:@"Flips: %d", self.flipCount];
 }
 
+#pragma mark - IBAction
+
 - (IBAction)flipCard:(UIButton *)sender
 {
-    //If NOT selected
-    if (sender.isSelected == NO)
-    {
-        /*
-        sender.selected = YES;
-        PlayingCard *currentCard = [self.deckOfPlayingCards drawRandomCard];
-        [self.myCard setTitle:currentCard.content forState:UIControlStateSelected];
-        [self.deckOfPlayingCards addCard:currentCard atTop:YES];
-        self.flipCount++;*/
-    }
-    else
-    {
-        sender.selected = NO;
-    }
+    sender.selected = !sender.isSelected;
+    self.flipCount++;
+    
+//    //If NOT selected
+//    if (sender.isSelected == NO)
+//    {
+//        
+//        sender.selected = YES;
+//        PlayingCard *currentCard = [self.deckOfPlayingCards drawRandomCard];
+//        [self.myCard setTitle:currentCard.content forState:UIControlStateSelected];
+//        [self.deckOfPlayingCards addCard:currentCard atTop:YES];
+//        self.flipCount++;
+//    }
+//    else
+//    {
+//        sender.selected = NO;
+//    }
 }
 
 @end
