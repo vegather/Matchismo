@@ -10,7 +10,7 @@
 
 @interface CardMatchingGame ()
 @property (nonatomic, readwrite) int score;
-@property (nonatomic, readwrite) NSString *statusOfMatch;
+@property (nonatomic, readwrite) NSString *statusOfComparison;
 @property (strong, nonatomic) NSMutableArray *cards; //of Card
 @end
 
@@ -82,10 +82,10 @@
     Card *card = [self cardAtIndex:index];
     
     //If there is a card at the index, and it is playable
-    if (card && !card.isUnplayable)
+    if (card && card.isUnplayable == NO)
     {
-        //If it's not faced up
-        if (!card.isFaceUp)
+        //We only want to do things if it is NOT? faced up
+        if (card.isFaceUp == NO)
         {
             //Loop through all our cards
             for (Card *otherCard in self.cards)
@@ -113,6 +113,16 @@
                     //When we have a match we don't care about the other cards
                     //More than two playable cards can't be selected anyways.
                     break;
+                }
+                //If the otherCard is not faced up, we want to say that the user
+                //has only flipped one card
+                else if (otherCard.isFaceUp == NO)
+                {
+                    //Will probably start of with this message, but if one of the
+                    //otherCards are faced up and playable, one of other messages
+                    //will be used.
+                    self.statusOfComparison = [NSString
+                                               stringWithFormat:@"Flipped up %@", card.content];
                 }
             }
             //Flipping a card costs a point only if card is faced up
