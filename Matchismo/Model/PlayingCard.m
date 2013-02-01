@@ -65,6 +65,36 @@
             score = 2;
         }
     }
+    else if ([otherCards count] == 2)
+    {
+        PlayingCard *firstCard = otherCards[0];
+        PlayingCard *secondCard = otherCards[1];
+        
+        //If two suits matches
+        if ([self.suit isEqualToString:firstCard.suit] ||
+            [self.suit isEqualToString:secondCard.suit])
+        {
+            //Two suits matched
+        }
+        //If two ranks mathc
+        else if (self.rank == firstCard.rank ||
+                 self.rank == secondCard.rank)
+        {
+            //Two ranks matched
+        }
+        //If all three suits match
+        else if ([self.suit isEqualToString:firstCard.suit] &&
+                 [self.suit isEqualToString:secondCard.suit])
+        {
+            //Three suits matched
+        }
+        //If three ranks mathc
+        else if (self.rank == firstCard.rank &&
+                 self.rank == secondCard.rank)
+        {
+            //Three ranks matched
+        }
+    }
     return score;
 }
 
