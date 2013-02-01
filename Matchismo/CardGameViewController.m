@@ -79,6 +79,11 @@
     self.scoreLabel.text = [NSString stringWithFormat:@"Score: %d", self.game.score];
 }
 
+- (void)reDealGame
+{
+    
+}
+
 #pragma mark - IBAction
 
 - (IBAction)flipCard:(UIButton *)sender
@@ -103,7 +108,10 @@
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    
+    if (buttonIndex == 1)
+    {
+        [self reDealGame];
+    }
 }
 
 @end
