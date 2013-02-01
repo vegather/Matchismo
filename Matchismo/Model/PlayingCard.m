@@ -53,18 +53,22 @@
 {
     int score = 0;
     
+    //Match two cards
     if ([otherCards count] == 1)
     {
         PlayingCard *otherCard = [otherCards lastObject];
         if ([otherCard.suit isEqualToString:self.suit])
         {
-            score = 1;
+            //Medium difficulty
+            score = 2;
         }
         else if (otherCard.rank == self.rank)
         {
-            score = 2;
+            //Medium difficulty
+            score = 4;
         }
     }
+    //Match three cards
     else if ([otherCards count] == 2)
     {
         PlayingCard *firstCard = otherCards[0];
@@ -74,25 +78,29 @@
         if ([self.suit isEqualToString:firstCard.suit] ||
             [self.suit isEqualToString:secondCard.suit])
         {
-            //Two suits matched
+            //Easy difficulty
+            score = 1;
         }
         //If two ranks mathc
         else if (self.rank == firstCard.rank ||
                  self.rank == secondCard.rank)
         {
-            //Two ranks matched
+            //Easy difficulty
+            score = 2;
         }
         //If all three suits match
         else if ([self.suit isEqualToString:firstCard.suit] &&
                  [self.suit isEqualToString:secondCard.suit])
         {
-            //Three suits matched
+            //Hard difficulty
+            score = 4;
         }
         //If three ranks mathc
         else if (self.rank == firstCard.rank &&
                  self.rank == secondCard.rank)
         {
-            //Three ranks matched
+            //Hard difficulty
+            score = 8;
         }
     }
     return score;
