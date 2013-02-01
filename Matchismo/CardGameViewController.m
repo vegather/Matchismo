@@ -18,6 +18,9 @@
 @property (weak, nonatomic) IBOutlet UILabel *scoreLabel;
 @property (weak, nonatomic) IBOutlet UILabel *messageFromComparisonLabel;
 
+//Segmented Control
+@property (weak, nonatomic) IBOutlet UISegmentedControl *difficultyChanger;
+
 //Buttons
 @property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *cardButtons;
 
@@ -29,6 +32,13 @@
 
 @implementation CardGameViewController
 {}
+
+- (void)viewDidLoad
+{
+    self.difficultyChanger.enabled = NO;
+    self.difficultyChanger.alpha = 0.3;
+}
+
 #pragma mark - Getter
 
 - (CardMatchingGame *)game
