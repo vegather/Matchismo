@@ -55,7 +55,7 @@
     self.flipsLabel.text = [NSString stringWithFormat:@"Flips: %d", self.flipCount];
 }
 
-#pragma mark - Method
+#pragma mark - Methods
 
 - (void)updateUI
 {
@@ -81,7 +81,10 @@
 
 - (void)reDealGame
 {
-    
+    self.game = [self.game initWithCardCount:[self.cardButtons count]
+                                   usingDeck:[[PlayingCardDeck alloc]init]];
+    self.flipCount = 0;
+    self.flipsLabel.text = [NSString stringWithFormat:@"Flips: %d", self.flipCount];
 }
 
 #pragma mark - IBAction
@@ -105,6 +108,8 @@
                                                otherButtonTitles:@"Deal", nil];
     [reDealAlert show];
 }
+
+#pragma mark - Delegate Methods
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
