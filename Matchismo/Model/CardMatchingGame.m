@@ -146,6 +146,14 @@
     }
 }
 
+- (void)resetScoreAndMessage
+{
+    self.score = 0;
+    self.messageFromMatch = @"";
+}
+
+#pragma mark - Private Methods
+
 //Get the card at the following index, if index is out of cards
 //array bounds, cardAtIndex: will return nil
 - (Card *)cardAtIndex:(NSUInteger)index

@@ -83,8 +83,10 @@
 {
     self.game = [self.game initWithCardCount:[self.cardButtons count]
                                    usingDeck:[[PlayingCardDeck alloc]init]];
+    [self.game resetScoreAndMessage];
     self.flipCount = 0;
     self.flipsLabel.text = [NSString stringWithFormat:@"Flips: %d", self.flipCount];
+    [self updateUI];
 }
 
 #pragma mark - IBAction

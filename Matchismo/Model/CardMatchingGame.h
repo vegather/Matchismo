@@ -17,6 +17,7 @@
 
 - (void)flipCardAtIndex:(NSUInteger)index;
 - (Card *)cardAtIndex:(NSUInteger)index;
+- (void)resetScoreAndMessage;
 
 @property (nonatomic, readonly) int score;
 @property (nonatomic, readonly) NSString *messageFromMatch;
