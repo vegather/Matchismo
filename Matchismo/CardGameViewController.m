@@ -10,7 +10,7 @@
 #import "PlayingCardDeck.h"
 #import "CardMatchingGame.h"
 
-@interface CardGameViewController ()
+@interface CardGameViewController () <UIAlertViewDelegate>
 
 //Labels
 @property (weak, nonatomic) IBOutlet UILabel *flipsLabel;
@@ -90,7 +90,18 @@
     }
     [self updateUI];
 }
+
 - (IBAction)dealButtonPressed
+{
+    UIAlertView *reDealAlert = [[UIAlertView alloc]initWithTitle:nil
+                                                         message:@"Are you sure you want to draw? This will end your current game."
+                                                        delegate:self
+                                               cancelButtonTitle:@"Cancel"
+                                               otherButtonTitles:@"Deal", nil];
+    [reDealAlert show];
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     
 }
