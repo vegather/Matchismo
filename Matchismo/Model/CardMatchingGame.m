@@ -12,7 +12,7 @@
 @property (nonatomic, readwrite) int score;
 @property (nonatomic, readwrite) NSString *messageFromMatch;
 @property (strong, nonatomic) NSMutableArray *cards; //of Card
-@property (nonatomic) int gameDifficulty;
+@property (nonatomic) int gameDifficulty; //0 = Easy, 1 = Medium, 2 = Hard
 @end
 
 @implementation CardMatchingGame
@@ -173,6 +173,125 @@
                 if (currentCard.isFaceUp && !currentCard.isUnplayable)
                 {
                     [indexesOfCardsToMatch addObject:[NSNumber numberWithInt:i]];
+                }
+            }
+            if (self.gameDifficulty == 0)
+            {
+                //Easy (2 out of 3)
+                if ([indexesOfCardsToMatch count] == 0)
+                {
+                    self.messageFromMatch = [NSString stringWithFormat:@"Flipped up %@", card.content];
+                }
+                else if ([indexesOfCardsToMatch count] == 1)
+                {
+                    self.messageFromMatch = [NSString stringWithFormat:@"Flipped up %@", card.content];
+                }
+                else if ([indexesOfCardsToMatch count] == 2)
+                {
+                    int indexOfFirstOtherCard = [indexesOfCardsToMatch[0]intValue];
+                    int indexOfSecondOtherCard = [indexesOfCardsToMatch[1]intValue];
+                    Card *firstOtherCard = [self.cards objectAtIndex:indexOfFirstOtherCard];
+                    Card *secondOtherCard = [self.cards objectAtIndex:indexOfSecondOtherCard];
+                    //card compares itself to the otherCard and gives us
+                    //a score as a result of that
+                    int matchScore = [card match:@[firstOtherCard, secondOtherCard]];
+                    //If we have a match
+                    if (matchScore != 0)
+                    {
+                        card.unPlayable = YES;
+                        firstOtherCard.unPlayable = YES;
+                        secondOtherCard.unPlayable = YES;
+                        int scoreThisMatch = matchScore * MATCH_BONUS;
+                        self.score += scoreThisMatch;
+                        self.messageFromMatch =[NSString
+                                                stringWithFormat:@"Matched %@ and %@ for\r\n%d points.",
+                                                firstOtherCard.content, card.content, scoreThisMatch];
+                    }
+                    //If the two cards didn't match
+                    else
+                    {
+                        firstOtherCard.faceUp = NO;
+                        self.score -= MISMATCH_PENALTY;
+                        self.messageFromMatch =[NSString
+                                                stringWithFormat:@"%@ and %@ don't match.\r\n%d points penalty!",
+                                                firstOtherCard.content, card.content, MISMATCH_PENALTY];
+                    }
+                }
+            }
+            else if (self.gameDifficulty == 1)
+            {
+                //Medium (2 out of 2)
+                if ([indexesOfCardsToMatch count] == 0)
+                {
+                    self.messageFromMatch = [NSString stringWithFormat:@"Flipped up %@", card.content];
+                }
+                else if ([indexesOfCardsToMatch count] == 1)
+                {
+                    int indexOfOtherCard = [[indexesOfCardsToMatch lastObject]intValue];
+                    Card *otherCard = [self.cards objectAtIndex:indexOfOtherCard];
+                    //card compares itself to the otherCard and gives us
+                    //a score as a result of that
+                    int matchScore = [card match:@[otherCard]];
+                    //If we have a match
+                    if (matchScore != 0)
+                    {
+                        card.unPlayable = YES;
+                        otherCard.unPlayable = YES;
+                        int scoreThisMatch = matchScore * MATCH_BONUS;
+                        self.score += scoreThisMatch;
+                        self.messageFromMatch =[NSString
+                                                stringWithFormat:@"Matched %@ and %@ for\r\n%d points.",
+                                                otherCard.content, card.content, scoreThisMatch];
+                    }
+                    //If the two cards didn't match
+                    else
+                    {
+                        otherCard.faceUp = NO;
+                        self.score -= MISMATCH_PENALTY;
+                        self.messageFromMatch =[NSString
+                                                stringWithFormat:@"%@ and %@ don't match.\r\n%d points penalty!",
+                                                otherCard.content, card.content, MISMATCH_PENALTY];
+                    }
+                }
+            }
+            else if (self.gameDifficulty == 2)
+            {
+                //Hard (3 out of 3)
+                if ([indexesOfCardsToMatch count] == 0)
+                {
+                    self.messageFromMatch = [NSString stringWithFormat:@"Flipped up %@", card.content];
+                }
+                else if ([indexesOfCardsToMatch count] == 1)
+                {
+                    int indexOfOtherCard = [[indexesOfCardsToMatch lastObject]intValue];
+                    Card *otherCard = [self.cards objectAtIndex:indexOfOtherCard];
+                    //card compares itself to the otherCard and gives us
+                    //a score as a result of that
+                    int matchScore = [card match:@[otherCard]];
+                    //If we have a match
+                    if (matchScore != 0)
+                    {
+                        card.unPlayable = YES;
+                        otherCard.unPlayable = YES;
+                        int scoreThisMatch = matchScore * MATCH_BONUS;
+                        self.score += scoreThisMatch;
+                        self.messageFromMatch =[NSString
+                                                stringWithFormat:@"Matched %@ and %@ for\r\n%d points.",
+                                                otherCard.content, card.content, scoreThisMatch];
+                    }
+                    //If the two cards didn't match
+                    else
+                    {
+                        otherCard.faceUp = NO;
+                        self.score -= MISMATCH_PENALTY;
+                        self.messageFromMatch =[NSString
+                                                stringWithFormat:@"%@ and %@ don't match.\r\n%d points penalty!",
+                                                otherCard.content, card.content, MISMATCH_PENALTY];
+                    }
+                }
+                else if ([indexesOfCardsToMatch count] == 2)
+                {
+                    
                 }
             }
             if ([indexesOfCardsToMatch count] == 0)
