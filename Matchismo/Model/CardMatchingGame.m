@@ -194,7 +194,7 @@
                     Card *secondOtherCard = [self.cards objectAtIndex:indexOfSecondOtherCard];
                     //card compares itself to the otherCard and gives us
                     //a score as a result of that
-                    int matchScore = [card match:@[firstOtherCard, secondOtherCard]];
+                    int matchScore = [card match:@[firstOtherCard, secondOtherCard] usingGameDifficulty:self.gameDifficulty];
                     //If we have a match
                     if (matchScore != 0)
                     {
@@ -231,7 +231,7 @@
                     Card *otherCard = [self.cards objectAtIndex:indexOfOtherCard];
                     //card compares itself to the otherCard and gives us
                     //a score as a result of that
-                    int matchScore = [card match:@[otherCard]];
+                    int matchScore = [card match:@[otherCard] usingGameDifficulty:self.gameDifficulty];
                     //If we have a match
                     if (matchScore != 0)
                     {
@@ -267,7 +267,7 @@
                     Card *otherCard = [self.cards objectAtIndex:indexOfOtherCard];
                     //card compares itself to the otherCard and gives us
                     //a score as a result of that
-                    int matchScore = [card match:@[otherCard]];
+                    int matchScore = [card match:@[otherCard] usingGameDifficulty:self.gameDifficulty];
                     //If we have a match
                     if (matchScore != 0)
                     {
@@ -294,43 +294,6 @@
                     
                 }
             }
-            if ([indexesOfCardsToMatch count] == 0)
-            {
-                self.messageFromMatch = [NSString stringWithFormat:@"Flipped up %@", card.content];
-            }
-            else if ([indexesOfCardsToMatch count] == 1)
-            {
-                int indexOfOtherCard = [[indexesOfCardsToMatch lastObject]intValue];
-                Card *otherCard = [self.cards objectAtIndex:indexOfOtherCard];
-                //card compares itself to the otherCard and gives us
-                //a score as a result of that
-                int matchScore = [card match:@[otherCard]];
-                //If we have a match
-                if (matchScore != 0)
-                {
-                    card.unPlayable = YES;
-                    otherCard.unPlayable = YES;
-                    int scoreThisMatch = matchScore * MATCH_BONUS;
-                    self.score += scoreThisMatch;
-                    self.messageFromMatch =[NSString
-                                            stringWithFormat:@"Matched %@ and %@ for\r\n%d points.",
-                                            otherCard.content, card.content, scoreThisMatch];
-                }
-                //If the two cards didn't match
-                else
-                {
-                    otherCard.faceUp = NO;
-                    self.score -= MISMATCH_PENALTY;
-                    self.messageFromMatch =[NSString
-                                            stringWithFormat:@"%@ and %@ don't match.\r\n%d points penalty!",
-                                            otherCard.content, card.content, MISMATCH_PENALTY];
-                }
-            }
-            else if ([indexesOfCardsToMatch count] == 3)
-            {
-                
-            }
-            
             //Flipping a card costs a point only if card is faced up
             self.score -= FLIP_COST;
         }
