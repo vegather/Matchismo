@@ -37,6 +37,7 @@
 
 - (void)viewDidLoad
 {
+    
     self.messageFromComparisonLabel.text = @"Match 2 out of 3 cards.";
 }
 
@@ -89,7 +90,7 @@
     self.scoreLabel.text = [NSString stringWithFormat:@"Score: %d", self.game.score];
 }
 
-- (void)reDealGame
+- (void)startOver
 {
     self.game = [self.game initWithCardCount:[self.cardButtons count]
                                 withDifficulty:self.currentDifficulty
@@ -128,20 +129,20 @@
     self.difficultyChanger.alpha = 0.3;
 }
 
-- (IBAction)dealButtonPressed
+- (IBAction)startOverButtonPressed
 {
-    UIAlertView *reDealAlert = [[UIAlertView alloc]initWithTitle:nil
+    UIAlertView *startOverAlert = [[UIAlertView alloc]initWithTitle:nil
                                                          message:@"Are you sure you want to Start Over? This will end your current game."
                                                         delegate:self
                                                cancelButtonTitle:@"Cancel"
                                                otherButtonTitles:@"Start Over", nil];
-    [reDealAlert show];
+    [startOverAlert show];
 }
 
 - (IBAction)difficultyChanged:(UISegmentedControl *)sender
 {
     self.currentDifficulty = sender.selectedSegmentIndex;
-    [self reDealGame];
+    [self startOver];
 }
 
 #pragma mark - Delegate Methods
@@ -150,7 +151,7 @@
 {
     if (buttonIndex == 1)
     {
-        [self reDealGame];
+        [self startOver];
     }
 }
 
