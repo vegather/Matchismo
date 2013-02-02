@@ -76,6 +76,76 @@
 
 #pragma mark - Public Instance Methods
 
+//- (void)flipCardAtIndex:(NSUInteger)index
+//{
+//    //Choses the card at a given index
+//    Card *card = [self cardAtIndex:index];
+//    
+//    //If there is a card at the index, and it is playable
+//    if (card && card.isUnplayable == NO)
+//    {
+//        //We only want to do things if card is GETTING flipped up
+//        if (card.isFaceUp == NO)
+//        {
+//            //Loop through all our cards
+//            for (Card *otherCard in self.cards)
+//            {
+//                //Check if there are other cards that are faced up
+//                //and playable, in which case we might have a match
+//                if (otherCard.isFaceUp && !otherCard.isUnplayable)
+//                {
+//                    //card compares itself to the otherCard and gives us
+//                    //a score as a result of that
+//                    int matchScore = [card match:@[otherCard]];
+//                    //If we have a match
+//                    if (matchScore != 0)
+//                    {
+//                        card.unPlayable = YES;
+//                        otherCard.unPlayable = YES;
+//                        int scoreThisMatch = matchScore * MATCH_BONUS;
+//                        self.score += scoreThisMatch;
+//                        self.messageFromMatch =[NSString
+//                                stringWithFormat:@"Matched %@ and %@ for\r\n%d points.",
+//                                        otherCard.content, card.content, scoreThisMatch];
+//                    }
+//                    //If the card didn't match
+//                    else
+//                    {
+//                        otherCard.faceUp = NO;
+//                        self.score -= MISMATCH_PENALTY;
+//                        self.messageFromMatch =[NSString
+//                                stringWithFormat:@"%@ and %@ don't match.\r\n%d points penalty!",
+//                                        otherCard.content, card.content, MISMATCH_PENALTY];
+//                    }
+//                    //When we have a match we don't care about the other cards
+//                    //More than two playable cards can't be selected anyways.
+//                    break;
+//                }
+//                //If the otherCard is not faced up, we want to say that the user
+//                //has only flipped one card
+//                else if (otherCard.isFaceUp == NO)
+//                {
+//                    //Will probably start of with this message, but if one of the
+//                    //otherCards are faced up and playable, one of other messages
+//                    //will be used.
+//                    self.messageFromMatch = [NSString
+//                                               stringWithFormat:@"Flipped up %@", card.content];
+//                }
+//            }
+//            //Flipping a card costs a point only if card is faced up
+//            self.score -= FLIP_COST;
+//        }
+//        //If card is getting flipped back down
+//        else
+//        {
+//            self.messageFromMatch = @"";
+//        }
+//        //The card will be flipped to the opposite of the
+//        //state it's currently in
+//        card.faceUp = !card.faceUp;
+//    }
+//}
+
 - (void)flipCardAtIndex:(NSUInteger)index
 {
     //Choses the card at a given index
@@ -87,51 +157,55 @@
         //We only want to do things if card is GETTING flipped up
         if (card.isFaceUp == NO)
         {
+            NSMutableArray *indexesOfCardsToMatch = [[NSMutableArray alloc]init];
             //Loop through all our cards
-            for (Card *otherCard in self.cards)
+            for (int i = 0; i < [self.cards count]; i++)//Card *currentCard in self.cards)
             {
+                Card *currentCard = self.cards[i];
                 //Check if there are other cards that are faced up
                 //and playable, in which case we might have a match
-                if (otherCard.isFaceUp && !otherCard.isUnplayable)
+                if (currentCard.isFaceUp && !currentCard.isUnplayable)
                 {
-                    //card compares itself to the otherCard and gives us
-                    //a score as a result of that
-                    int matchScore = [card match:@[otherCard]];
-                    //If we have a match
-                    if (matchScore != 0)
-                    {
-                        card.unPlayable = YES;
-                        otherCard.unPlayable = YES;
-                        int scoreThisMatch = matchScore * MATCH_BONUS;
-                        self.score += scoreThisMatch;
-                        self.messageFromMatch =[NSString
-                                stringWithFormat:@"Matched %@ and %@ for\r\n%d points.",
-                                        otherCard.content, card.content, scoreThisMatch];
-                    }
-                    //If the card didn't match
-                    else
-                    {
-                        otherCard.faceUp = NO;
-                        self.score -= MISMATCH_PENALTY;
-                        self.messageFromMatch =[NSString
-                                stringWithFormat:@"%@ and %@ don't match.\r\n%d points penalty!",
-                                        otherCard.content, card.content, MISMATCH_PENALTY];
-                    }
-                    //When we have a match we don't care about the other cards
-                    //More than two playable cards can't be selected anyways.
-                    break;
-                }
-                //If the otherCard is not faced up, we want to say that the user
-                //has only flipped one card
-                else if (otherCard.isFaceUp == NO)
-                {
-                    //Will probably start of with this message, but if one of the
-                    //otherCards are faced up and playable, one of other messages
-                    //will be used.
-                    self.messageFromMatch = [NSString
-                                               stringWithFormat:@"Flipped up %@", card.content];
+                    [indexesOfCardsToMatch addObject:[NSNumber numberWithInt:i]];
                 }
             }
+            if ([indexesOfCardsToMatch count] == 0)
+            {
+                self.messageFromMatch = [NSString stringWithFormat:@"Flipped up %@", card.content];
+            }
+            else if ([indexesOfCardsToMatch count] == 1)
+            {
+                int indexOfOtherCard = [[indexesOfCardsToMatch lastObject]intValue];
+                Card *otherCard = [self.cards objectAtIndex:indexOfOtherCard];
+                //card compares itself to the otherCard and gives us
+                //a score as a result of that
+                int matchScore = [card match:@[otherCard]];
+                //If we have a match
+                if (matchScore != 0)
+                {
+                    card.unPlayable = YES;
+                    otherCard.unPlayable = YES;
+                    int scoreThisMatch = matchScore * MATCH_BONUS;
+                    self.score += scoreThisMatch;
+                    self.messageFromMatch =[NSString
+                                            stringWithFormat:@"Matched %@ and %@ for\r\n%d points.",
+                                            otherCard.content, card.content, scoreThisMatch];
+                }
+                //If the two cards didn't match
+                else
+                {
+                    otherCard.faceUp = NO;
+                    self.score -= MISMATCH_PENALTY;
+                    self.messageFromMatch =[NSString
+                                            stringWithFormat:@"%@ and %@ don't match.\r\n%d points penalty!",
+                                            otherCard.content, card.content, MISMATCH_PENALTY];
+                }
+            }
+            else if ([indexesOfCardsToMatch count] == 3)
+            {
+                
+            }
+            
             //Flipping a card costs a point only if card is faced up
             self.score -= FLIP_COST;
         }
