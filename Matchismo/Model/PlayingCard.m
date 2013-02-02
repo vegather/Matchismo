@@ -49,7 +49,7 @@
     return [rankStrings[self.rank] stringByAppendingString:self.suit];
 }
 
-- (int)match:(NSArray *)otherCards
+- (int)match:(NSArray *)otherCards usingGameDifficulty:(int)gameDifficultyIndex
 {
     int score = 0;
     
@@ -57,7 +57,7 @@
     if ([otherCards count] == 1)
     {
         PlayingCard *otherCard = [otherCards lastObject];
-        if ([otherCard.suit isEqualToString:self.suit])
+        if ([otherCard.suit isEqualToString:self.suit] && gameDifficultyIndex == 1)
         {
             //Medium difficulty
             score = 2;
@@ -74,34 +74,44 @@
         PlayingCard *firstCard = otherCards[0];
         PlayingCard *secondCard = otherCards[1];
         
-        //If two suits matches
-        if ([self.suit isEqualToString:firstCard.suit] ||
-            [self.suit isEqualToString:secondCard.suit])
+        if (gameDifficultyIndex == 0)
         {
-            //Easy difficulty
-            score = 1;
+            //If two suits matches
+            if ([self.suit isEqualToString:firstCard.suit] ||
+                [self.suit isEqualToString:secondCard.suit] ||
+                [firstCard.suit isEqualToString:secondCard.suit])
+            {
+                //Easy difficulty
+                score = 1;
+            }
+            //If two ranks matches
+            if (self.rank == firstCard.rank ||
+                self.rank == secondCard.rank ||
+                firstCard.rank == secondCard.rank)
+            {
+                //Easy difficulty
+                score = 2;
+            }
         }
-        //If two ranks mathc
-        else if (self.rank == firstCard.rank ||
-                 self.rank == secondCard.rank)
+        else if (gameDifficultyIndex == 2)
         {
-            //Easy difficulty
-            score = 2;
+            //If all three suits matches
+            if ([self.suit isEqualToString:firstCard.suit] &&
+                [self.suit isEqualToString:secondCard.suit])
+            {
+                //Hard difficulty
+                score = 4;
+            }
+            //If all three ranks matches
+            else if (self.rank == firstCard.rank &&
+                     self.rank == secondCard.rank)
+            {
+                //Hard difficulty
+                score = 8;
+            }
         }
-        //If all three suits match
-        else if ([self.suit isEqualToString:firstCard.suit] &&
-                 [self.suit isEqualToString:secondCard.suit])
-        {
-            //Hard difficulty
-            score = 4;
-        }
-        //If three ranks mathc
-        else if (self.rank == firstCard.rank &&
-                 self.rank == secondCard.rank)
-        {
-            //Hard difficulty
-            score = 8;
-        }
+        
+       
     }
     return score;
 }

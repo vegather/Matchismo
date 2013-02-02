@@ -10,7 +10,7 @@
 
 @implementation Card
 
-- (int)match:(NSArray *)otherCards
+- (int)match:(NSArray *)otherCards usingGameDifficulty:(int)gameDifficultyIndex
 {
     int score = 0;
     
