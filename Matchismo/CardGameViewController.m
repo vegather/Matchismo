@@ -100,8 +100,18 @@
     [self updateUI];
     self.difficultyChanger.enabled = YES;
     self.difficultyChanger.alpha = 1.0;
-    //Make sure messageFromMatchComparison gets updated
-    [self difficultyChanged:self.difficultyChanger];
+    if (self.difficultyChanger.selectedSegmentIndex == 0)
+    {
+        self.messageFromComparisonLabel.text = @"Match 2 out of 3 cards.";
+    }
+    else if (self.difficultyChanger.selectedSegmentIndex == 1)
+    {
+        self.messageFromComparisonLabel.text = @"Match 2 out of 2 cards.";
+    }
+    else if (self.difficultyChanger.selectedSegmentIndex == 2)
+    {
+        self.messageFromComparisonLabel.text = @"Match 3 out of 3 cards.";
+    }
 }
 
 #pragma mark - IBAction
@@ -131,19 +141,7 @@
 - (IBAction)difficultyChanged:(UISegmentedControl *)sender
 {
     self.currentDifficulty = sender.selectedSegmentIndex;
-    //[self reDealGame];
-    if (sender.selectedSegmentIndex == 0)
-    {
-        self.messageFromComparisonLabel.text = @"Match 2 out of 3 cards.";
-    }
-    else if (sender.selectedSegmentIndex == 1)
-    {
-        self.messageFromComparisonLabel.text = @"Match 2 out of 2 cards.";
-    }
-    else if (sender.selectedSegmentIndex == 2)
-    {
-        self.messageFromComparisonLabel.text = @"Match 3 out of 3 cards.";
-    }
+    [self reDealGame];
 }
 
 #pragma mark - Delegate Methods
