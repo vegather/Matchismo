@@ -190,7 +190,8 @@
                     Card *secondOtherCard = [self.cards objectAtIndex:indexOfSecondOtherCard];
                     //card compares itself to the otherCard and gives us
                     //a score as a result of that
-                    int matchScore = [card match:@[firstOtherCard, secondOtherCard] usingGameDifficulty:self.gameDifficulty];
+                    int matchScore = [card match:@[firstOtherCard, secondOtherCard]
+                             usingGameDifficulty:self.gameDifficulty];
                     //If we have a match
                     if (matchScore != 0)
                     {
@@ -210,8 +211,9 @@
                         secondOtherCard.faceUp = NO;
                         self.score -= MISMATCH_PENALTY;
                         self.messageFromMatch =[NSString
-                                                stringWithFormat:@"%@, %@ and %@ don't match.\r\n%d points penalty!",
-                                                secondOtherCard.content, firstOtherCard.content, card.content, MISMATCH_PENALTY];
+                                    stringWithFormat:@"%@, %@ and %@ don't match.\r\n%d points penalty!",
+                                                secondOtherCard.content, firstOtherCard.content,
+                                                            card.content, MISMATCH_PENALTY];
                     }
                 }
             }
@@ -228,7 +230,8 @@
                     Card *otherCard = [self.cards objectAtIndex:indexOfOtherCard];
                     //card compares itself to the otherCard and gives us
                     //a score as a result of that
-                    int matchScore = [card match:@[otherCard] usingGameDifficulty:self.gameDifficulty];
+                    int matchScore = [card match:@[otherCard]
+                             usingGameDifficulty:self.gameDifficulty];
                     //If we have a match
                     if (matchScore != 0)
                     {
@@ -237,7 +240,7 @@
                         int scoreThisMatch = matchScore * MATCH_BONUS;
                         self.score += scoreThisMatch;
                         self.messageFromMatch =[NSString
-                                                stringWithFormat:@"Matched %@ and %@ for\r\n%d points.",
+                                    stringWithFormat:@"Matched %@ and %@ for\r\n%d points.",
                                                 otherCard.content, card.content, scoreThisMatch];
                     }
                     //If the two cards didn't match
@@ -246,7 +249,7 @@
                         otherCard.faceUp = NO;
                         self.score -= MISMATCH_PENALTY;
                         self.messageFromMatch =[NSString
-                                                stringWithFormat:@"%@ and %@ don't match.\r\n%d points penalty!",
+                                    stringWithFormat:@"%@ and %@ don't match.\r\n%d points penalty!",
                                                 otherCard.content, card.content, MISMATCH_PENALTY];
                     }
                 }
