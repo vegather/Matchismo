@@ -104,6 +104,8 @@
     [self updateUI];
     self.difficultyChanger.enabled = YES;
     self.difficultyChanger.alpha = 1.0;
+    self.startOverButton.enabled = NO;
+    self.startOverButton.alpha = 0.3;
     if (self.difficultyChanger.selectedSegmentIndex == 0)
     {
         self.messageFromComparisonLabel.text = @"Match 2 out of 3 cards.";
