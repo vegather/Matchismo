@@ -20,6 +20,7 @@
 
 //Segmented Control
 @property (weak, nonatomic) IBOutlet UISegmentedControl *difficultyChanger;
+@property (nonatomic) int currentGameMode;
 
 //Buttons
 @property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *cardButtons;
@@ -32,13 +33,6 @@
 
 @implementation CardGameViewController
 {}
-
-- (void)viewDidLoad
-{
-    self.difficultyChanger.enabled = NO;
-    self.difficultyChanger.alpha = 0.3;
-}
-
 #pragma mark - Getter
 
 - (CardMatchingGame *)game
@@ -46,6 +40,7 @@
     if (!_game)
     {
         _game = [[CardMatchingGame alloc]initWithCardCount:[self.cardButtons count]
+                                              withGameMode:self.currentGameMode
                                                  usingDeck:[[PlayingCardDeck alloc]init]];
     }
     return _game;
@@ -92,6 +87,7 @@
 - (void)reDealGame
 {
     self.game = [self.game initWithCardCount:[self.cardButtons count]
+                                withGameMode:self.currentGameMode
                                    usingDeck:[[PlayingCardDeck alloc]init]];
     [self.game resetScoreAndMessage];
     self.flipCount = 0;
@@ -119,6 +115,12 @@
                                                cancelButtonTitle:@"Cancel"
                                                otherButtonTitles:@"Deal", nil];
     [reDealAlert show];
+}
+
+- (IBAction)difficultyChanged:(UISegmentedControl *)sender
+{
+    self.currentGameMode = sender.selectedSegmentIndex;
+    [self reDealGame];
 }
 
 #pragma mark - Delegate Methods
