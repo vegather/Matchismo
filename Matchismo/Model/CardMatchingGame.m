@@ -12,7 +12,7 @@
 @property (nonatomic, readwrite) int score;
 @property (nonatomic, readwrite) NSString *messageFromMatch;
 @property (strong, nonatomic) NSMutableArray *cards; //of Card
-@property (nonatomic) int gameMode;
+@property (nonatomic) int gameDifficulty;
 @end
 
 @implementation CardMatchingGame
@@ -29,7 +29,7 @@
 //Initializer that draws a random card from a deck and puts it in
 //internal stack of cards.
 - (id)initWithCardCount:(NSUInteger)count
-           withGameMode:(int)currentGameMode
+           withDifficulty:(int)currentDifficulty
               usingDeck:(Deck *)deck
 {
     self = [super init];
@@ -37,7 +37,7 @@
     if (self)
     {
         //Set the game mode
-        self.gameMode = currentGameMode;
+        self.gameDifficulty = currentDifficulty;
         
         //Loops though every card
         for (int i = 0; i < count; i++)

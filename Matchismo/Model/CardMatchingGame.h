@@ -14,7 +14,7 @@
 
 //Designated Initializer
 - (id)initWithCardCount:(NSUInteger)count
-           withGameMode:(int)currentGameMode
+           withDifficulty:(int)currentDifficulty
               usingDeck:(Deck *)deck;
 
 - (void)flipCardAtIndex:(NSUInteger)index;

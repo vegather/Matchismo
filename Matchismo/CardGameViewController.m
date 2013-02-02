@@ -20,7 +20,7 @@
 
 //Segmented Control
 @property (weak, nonatomic) IBOutlet UISegmentedControl *difficultyChanger;
-@property (nonatomic) int currentGameMode;
+@property (nonatomic) int currentDifficulty;
 
 //Buttons
 @property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *cardButtons;
@@ -40,7 +40,7 @@
     if (!_game)
     {
         _game = [[CardMatchingGame alloc]initWithCardCount:[self.cardButtons count]
-                                              withGameMode:self.currentGameMode
+                                              withDifficulty:self.currentDifficulty
                                                  usingDeck:[[PlayingCardDeck alloc]init]];
     }
     return _game;
@@ -87,7 +87,7 @@
 - (void)reDealGame
 {
     self.game = [self.game initWithCardCount:[self.cardButtons count]
-                                withGameMode:self.currentGameMode
+                                withDifficulty:self.currentDifficulty
                                    usingDeck:[[PlayingCardDeck alloc]init]];
     [self.game resetScoreAndMessage];
     self.flipCount = 0;
@@ -119,7 +119,7 @@
 
 - (IBAction)difficultyChanged:(UISegmentedControl *)sender
 {
-    self.currentGameMode = sender.selectedSegmentIndex;
+    self.currentDifficulty = sender.selectedSegmentIndex;
     [self reDealGame];
 }
 
