@@ -18,5 +18,8 @@
 
 + (NSArray *)validSuits;
 + (NSUInteger)maxRank;
++ (NSArray *)twoCardsThatMatchedFromThisCard:(PlayingCard *)firstCard
+                                    thisCard:(PlayingCard *)secondCard
+                                 andThisCard:(PlayingCard *)thirdCard;
 
 @end
