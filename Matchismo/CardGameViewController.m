@@ -35,6 +35,11 @@
 {}
 #pragma mark - Getter
 
+- (void)viewDidLoad
+{
+    self.messageFromComparisonLabel.text = @"Match 2 out of 3 cards.";
+}
+
 - (CardMatchingGame *)game
 {
     if (!_game)
@@ -93,6 +98,10 @@
     self.flipCount = 0;
     self.flipsLabel.text = [NSString stringWithFormat:@"Flips: %d", self.flipCount];
     [self updateUI];
+    self.difficultyChanger.enabled = YES;
+    self.difficultyChanger.alpha = 1.0;
+    //Make sure messageFromMatchComparison gets updated
+    [self difficultyChanged:self.difficultyChanger];
 }
 
 #pragma mark - IBAction
@@ -105,6 +114,8 @@
         self.flipCount++;
     }
     [self updateUI];
+    self.difficultyChanger.enabled = NO;
+    self.difficultyChanger.alpha = 0.3;
 }
 
 - (IBAction)dealButtonPressed
@@ -120,7 +131,19 @@
 - (IBAction)difficultyChanged:(UISegmentedControl *)sender
 {
     self.currentDifficulty = sender.selectedSegmentIndex;
-    [self reDealGame];
+    //[self reDealGame];
+    if (sender.selectedSegmentIndex == 0)
+    {
+        self.messageFromComparisonLabel.text = @"Match 2 out of 3 cards.";
+    }
+    else if (sender.selectedSegmentIndex == 1)
+    {
+        self.messageFromComparisonLabel.text = @"Match 2 out of 2 cards.";
+    }
+    else if (sender.selectedSegmentIndex == 2)
+    {
+        self.messageFromComparisonLabel.text = @"Match 3 out of 3 cards.";
+    }
 }
 
 #pragma mark - Delegate Methods
