@@ -24,6 +24,7 @@
 
 //Buttons
 @property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *cardButtons;
+@property (weak, nonatomic) IBOutlet UIButton *startOverButton;
 
 //The Game
 @property (strong, nonatomic) CardMatchingGame *game;
@@ -33,13 +34,15 @@
 
 @implementation CardGameViewController
 {}
-#pragma mark - Getter
 
 - (void)viewDidLoad
 {
-    
+    self.startOverButton.enabled = NO;
+    self.startOverButton.alpha = 0.3;
     self.messageFromComparisonLabel.text = @"Match 2 out of 3 cards.";
 }
+
+#pragma mark - Getter
 
 - (CardMatchingGame *)game
 {
@@ -119,6 +122,8 @@
 
 - (IBAction)flipCard:(UIButton *)sender
 {
+    self.startOverButton.enabled = YES;
+    self.startOverButton.alpha = 1.0;
     [self.game flipCardAtIndex:[self.cardButtons indexOfObject:sender]];
     if (sender.selected == NO)
     {

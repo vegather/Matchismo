@@ -324,7 +324,7 @@
                         <outlet property="flipsLabel" destination="gQ1-0Z-P7u" id="sXx-Kz-Hzf"/>
                         <outlet property="messageFromComparisonLabel" destination="XtD-GQ-Wcz" id="05Q-dg-IOd"/>
                         <outlet property="scoreLabel" destination="uaq-RO-dgH" id="dqc-6z-FAW"/>
-                        <outlet property="startOverButton" destination="Kwh-jp-nve" id="9tY-Ib-baD"/>
+                        <outlet property="startOverButton" destination="Kwh-jp-nve" id="RlA-bP-IGU"/>
                         <outletCollection property="cardButtons" destination="pGV-s4-Ewm" id="Zf3-lh-93G"/>
                         <outletCollection property="cardButtons" destination="b6P-mv-MTu" id="FTX-6T-Wpw"/>
                         <outletCollection property="cardButtons" destination="J12-UG-ygY" id="Zqx-yJ-K5Y"/>
@@ -348,6 +348,21 @@
             <point key="canvasLocation" x="-54" y="210"/>
         </scene>
     </scenes>
+    <classes>
+        <class className="CardGameViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CardGameViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="difficultyChanged:" candidateClass="UISegmentedControl"/>
+                <relationship kind="action" name="flipCard:" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="difficultyChanger" candidateClass="UISegmentedControl"/>
+                <relationship kind="outlet" name="flipsLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="messageFromComparisonLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="scoreLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="startOverButton" candidateClass="UIButton"/>
+                <relationship kind="outletCollection" name="cardButtons" candidateClass="UIButton"/>
+            </relationships>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
