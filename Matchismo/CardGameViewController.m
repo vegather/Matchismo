@@ -131,10 +131,10 @@
 - (IBAction)dealButtonPressed
 {
     UIAlertView *reDealAlert = [[UIAlertView alloc]initWithTitle:nil
-                                                         message:@"Are you sure you want to draw? This will end your current game."
+                                                         message:@"Are you sure you want to Start Over? This will end your current game."
                                                         delegate:self
                                                cancelButtonTitle:@"Cancel"
-                                               otherButtonTitles:@"Deal", nil];
+                                               otherButtonTitles:@"Start Over", nil];
     [reDealAlert show];
 }
 

@@ -178,11 +178,7 @@
             if (self.gameDifficulty == 0)
             {
                 //Easy (2 out of 3)
-                if ([indexesOfCardsToMatch count] == 0)
-                {
-                    self.messageFromMatch = [NSString stringWithFormat:@"Flipped up %@", card.content];
-                }
-                else if ([indexesOfCardsToMatch count] == 1)
+                if ([indexesOfCardsToMatch count] == 0 || [indexesOfCardsToMatch count] == 1)
                 {
                     self.messageFromMatch = [NSString stringWithFormat:@"Flipped up %@", card.content];
                 }
@@ -211,10 +207,11 @@
                     else
                     {
                         firstOtherCard.faceUp = NO;
+                        secondOtherCard.faceUp = NO;
                         self.score -= MISMATCH_PENALTY;
                         self.messageFromMatch =[NSString
-                                                stringWithFormat:@"%@ and %@ don't match.\r\n%d points penalty!",
-                                                firstOtherCard.content, card.content, MISMATCH_PENALTY];
+                                                stringWithFormat:@"%@, %@ and %@ don't match.\r\n%d points penalty!",
+                                                secondOtherCard.content, firstOtherCard.content, card.content, MISMATCH_PENALTY];
                     }
                 }
             }
@@ -257,11 +254,11 @@
             else if (self.gameDifficulty == 2)
             {
                 //Hard (3 out of 3)
-                if ([indexesOfCardsToMatch count] == 0)
+                if ([indexesOfCardsToMatch count] == 0 || [indexesOfCardsToMatch count] == 1)
                 {
                     self.messageFromMatch = [NSString stringWithFormat:@"Flipped up %@", card.content];
                 }
-                else if ([indexesOfCardsToMatch count] == 1)
+                else if ([indexesOfCardsToMatch count] == 2)
                 {
                     int indexOfOtherCard = [[indexesOfCardsToMatch lastObject]intValue];
                     Card *otherCard = [self.cards objectAtIndex:indexOfOtherCard];
@@ -288,10 +285,6 @@
                                                 stringWithFormat:@"%@ and %@ don't match.\r\n%d points penalty!",
                                                 otherCard.content, card.content, MISMATCH_PENALTY];
                     }
-                }
-                else if ([indexesOfCardsToMatch count] == 2)
-                {
-                    
                 }
             }
             //Flipping a card costs a point only if card is faced up
