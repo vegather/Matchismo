@@ -49,42 +49,46 @@
     return [rankStrings[self.rank] stringByAppendingString:self.suit];
 }
 
-+ (NSArray *)twoCardsThatMatchedFromThisCard:(PlayingCard *)firstCard
-                                    thisCard:(PlayingCard *)secondCard
-                                 andThisCard:(PlayingCard *)thirdCard
+- (NSArray *)twoCardsThatMatchedFromThreeCards:(NSArray *)threeCards
 {
     NSMutableArray *matchedCards = [[NSMutableArray alloc]init];
     
-    //If some of the suits matched
-    if ([firstCard.suit isEqualToString:secondCard.suit])
+    if ([threeCards count] == 3)
     {
-        [matchedCards addObjectsFromArray:@[firstCard, secondCard]];
-    }
-    else if ([firstCard.suit isEqualToString:thirdCard.suit])
-    {
-        [matchedCards addObjectsFromArray:@[firstCard, thirdCard]];
-    }
-    else if ([secondCard.suit isEqualToString:thirdCard.suit])
-    {
-        [matchedCards addObjectsFromArray:@[secondCard, thirdCard]];
-    }
-    
-    //If some rank matched, replace content of matchedCards and add cards
-    //with rank that matched
-    if (firstCard.rank == secondCard.rank)
-    {
-        [matchedCards removeAllObjects];
-        [matchedCards addObjectsFromArray:@[firstCard, secondCard]];
-    }
-    else if (firstCard.rank == thirdCard.rank)
-    {
-        [matchedCards removeAllObjects];
-        [matchedCards addObjectsFromArray:@[firstCard, thirdCard]];
-    }
-    else if (secondCard.rank == thirdCard.rank)
-    {
-        [matchedCards removeAllObjects];
-        [matchedCards addObjectsFromArray:@[secondCard, thirdCard]];
+        PlayingCard *firstCard = threeCards[0];
+        PlayingCard *secondCard = threeCards[1];
+        PlayingCard *thirdCard = threeCards[2];
+        //If some of the suits matched
+        if ([firstCard.suit isEqualToString:secondCard.suit])
+        {
+            [matchedCards addObjectsFromArray:@[firstCard, secondCard]];
+        }
+        else if ([firstCard.suit isEqualToString:thirdCard.suit])
+        {
+            [matchedCards addObjectsFromArray:@[firstCard, thirdCard]];
+        }
+        else if ([secondCard.suit isEqualToString:thirdCard.suit])
+        {
+            [matchedCards addObjectsFromArray:@[secondCard, thirdCard]];
+        }
+        
+        //If some rank matched, replace content of matchedCards and add cards
+        //with rank that matched
+        if (firstCard.rank == secondCard.rank)
+        {
+            [matchedCards removeAllObjects];
+            [matchedCards addObjectsFromArray:@[firstCard, secondCard]];
+        }
+        else if (firstCard.rank == thirdCard.rank)
+        {
+            [matchedCards removeAllObjects];
+            [matchedCards addObjectsFromArray:@[firstCard, thirdCard]];
+        }
+        else if (secondCard.rank == thirdCard.rank)
+        {
+            [matchedCards removeAllObjects];
+            [matchedCards addObjectsFromArray:@[secondCard, thirdCard]];
+        }
     }
     
     return [matchedCards copy];

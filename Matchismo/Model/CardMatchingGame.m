@@ -195,6 +195,7 @@
                     //If we have a match
                     if (matchScore != 0)
                     {
+                        //NSArray *twoCardsThatMatched = [ ]
                         card.unPlayable = YES;
                         firstOtherCard.unPlayable = YES;
                         secondOtherCard.unPlayable = YES;
