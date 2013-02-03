@@ -56,38 +56,51 @@
     //Match two cards
     if ([otherCards count] == 1)
     {
-        PlayingCard *otherCard = [otherCards lastObject];
-        if ([otherCard.suit isEqualToString:self.suit])
+        id otherCard = [otherCards lastObject];
+        if ([otherCard isKindOfClass:[PlayingCard class]])
         {
-            //Easy difficulty
-            score = 2;
+            PlayingCard *otherPlayingCard = (PlayingCard *)otherCard;
+            if ([otherPlayingCard.suit isEqualToString:self.suit])
+            {
+                //Easy difficulty
+                score = 2;
+            }
+            else if (otherPlayingCard.rank == self.rank)
+            {
+                //Easy difficulty
+                score = 4;
+            }
         }
-        else if (otherCard.rank == self.rank)
-        {
-            //Easy difficulty
-            score = 4;
-        }
+        
     }
     //Match three cards
     else if ([otherCards count] == 2)
     {
-        PlayingCard *firstCard = otherCards[0];
-        PlayingCard *secondCard = otherCards[1];
+        id firstCard = otherCards[0];
+        id secondCard = otherCards[1];
         
-        //If all three suits matches
-        if ([self.suit isEqualToString:firstCard.suit] &&
-            [self.suit isEqualToString:secondCard.suit])
+        if ([firstCard isKindOfClass:[PlayingCard class]] &&
+            [secondCard isKindOfClass:[PlayingCard class]])
         {
-            //Hard difficulty
-            score = 4;
+            PlayingCard *firstPlayingCard = (PlayingCard *)firstCard;
+            PlayingCard *secondPlayingCard = (PlayingCard *)secondCard;
+            //If all three suits matches
+            if ([self.suit isEqualToString:firstPlayingCard.suit] &&
+                [self.suit isEqualToString:secondPlayingCard.suit])
+            {
+                //Hard difficulty
+                score = 4;
+            }
+            //If all three ranks matches
+            else if (self.rank == firstPlayingCard.rank &&
+                     self.rank == secondPlayingCard.rank)
+            {
+                //Hard difficulty
+                score = 8;
+            }
         }
-        //If all three ranks matches
-        else if (self.rank == firstCard.rank &&
-                 self.rank == secondCard.rank)
-        {
-            //Hard difficulty
-            score = 8;
-        }
+        
+        
     }
     return score;
 }
