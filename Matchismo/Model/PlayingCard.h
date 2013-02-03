@@ -15,7 +15,6 @@
 @property (nonatomic) NSUInteger rank;
 
 - (NSString *)content;
-- (NSArray *)twoCardsThatMatchedFromThreeCards:(NSArray *)threeCards;
 
 + (NSArray *)validSuits;
 + (NSUInteger)maxRank;

@@ -49,52 +49,7 @@
     return [rankStrings[self.rank] stringByAppendingString:self.suit];
 }
 
-- (NSArray *)twoCardsThatMatchedFromThreeCards:(NSArray *)threeCards
-{
-    NSMutableArray *matchedCards = [[NSMutableArray alloc]init];
-    
-    if ([threeCards count] == 3)
-    {
-        PlayingCard *firstCard = threeCards[0];
-        PlayingCard *secondCard = threeCards[1];
-        PlayingCard *thirdCard = threeCards[2];
-        //If some of the suits matched
-        if ([firstCard.suit isEqualToString:secondCard.suit])
-        {
-            [matchedCards addObjectsFromArray:@[firstCard, secondCard]];
-        }
-        else if ([firstCard.suit isEqualToString:thirdCard.suit])
-        {
-            [matchedCards addObjectsFromArray:@[firstCard, thirdCard]];
-        }
-        else if ([secondCard.suit isEqualToString:thirdCard.suit])
-        {
-            [matchedCards addObjectsFromArray:@[secondCard, thirdCard]];
-        }
-        
-        //If some rank matched, replace content of matchedCards and add cards
-        //with rank that matched
-        if (firstCard.rank == secondCard.rank)
-        {
-            [matchedCards removeAllObjects];
-            [matchedCards addObjectsFromArray:@[firstCard, secondCard]];
-        }
-        else if (firstCard.rank == thirdCard.rank)
-        {
-            [matchedCards removeAllObjects];
-            [matchedCards addObjectsFromArray:@[firstCard, thirdCard]];
-        }
-        else if (secondCard.rank == thirdCard.rank)
-        {
-            [matchedCards removeAllObjects];
-            [matchedCards addObjectsFromArray:@[secondCard, thirdCard]];
-        }
-    }
-    
-    return [matchedCards copy];
-}
-
-- (int)match:(NSArray *)otherCards usingGameDifficulty:(int)gameDifficultyIndex
+- (int)match:(NSArray *)otherCards
 {
     int score = 0;
     
@@ -102,14 +57,14 @@
     if ([otherCards count] == 1)
     {
         PlayingCard *otherCard = [otherCards lastObject];
-        if ([otherCard.suit isEqualToString:self.suit] && gameDifficultyIndex == 1)
+        if ([otherCard.suit isEqualToString:self.suit])
         {
-            //Medium difficulty
+            //Easy difficulty
             score = 2;
         }
         else if (otherCard.rank == self.rank)
         {
-            //Medium difficulty
+            //Easy difficulty
             score = 4;
         }
     }
@@ -119,44 +74,20 @@
         PlayingCard *firstCard = otherCards[0];
         PlayingCard *secondCard = otherCards[1];
         
-        if (gameDifficultyIndex == 0)
+        //If all three suits matches
+        if ([self.suit isEqualToString:firstCard.suit] &&
+            [self.suit isEqualToString:secondCard.suit])
         {
-            //If two suits matches
-            if ([self.suit isEqualToString:firstCard.suit] ||
-                [self.suit isEqualToString:secondCard.suit] ||
-                [firstCard.suit isEqualToString:secondCard.suit])
-            {
-                //Easy difficulty
-                score = 1;
-            }
-            //If two ranks matches
-            if (self.rank == firstCard.rank ||
-                self.rank == secondCard.rank ||
-                firstCard.rank == secondCard.rank)
-            {
-                //Easy difficulty
-                score = 2;
-            }
+            //Hard difficulty
+            score = 4;
         }
-        else if (gameDifficultyIndex == 2)
+        //If all three ranks matches
+        else if (self.rank == firstCard.rank &&
+                 self.rank == secondCard.rank)
         {
-            //If all three suits matches
-            if ([self.suit isEqualToString:firstCard.suit] &&
-                [self.suit isEqualToString:secondCard.suit])
-            {
-                //Hard difficulty
-                score = 4;
-            }
-            //If all three ranks matches
-            else if (self.rank == firstCard.rank &&
-                     self.rank == secondCard.rank)
-            {
-                //Hard difficulty
-                score = 8;
-            }
+            //Hard difficulty
+            score = 8;
         }
-        
-       
     }
     return score;
 }

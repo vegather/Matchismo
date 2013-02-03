@@ -102,7 +102,7 @@
                 {
                     //card compares itself to the otherCard and gives us
                     //a score as a result of that
-                    int matchScore = [card match:@[otherCard] usingGameDifficulty:self.gameDifficulty];
+                    int matchScore = [card match:@[otherCard]];
                     //If we have a match
                     if (matchScore != 0)
                     {
@@ -178,7 +178,7 @@
                         Card *secondOtherCard = otherCards[1];
                         //card compares itself to the otherCard and gives us
                         //a score as a result of that
-                        int matchScore = [card match:otherCards usingGameDifficulty:self.gameDifficulty];
+                        int matchScore = [card match:otherCards];
                         //If we have a match
                         if (matchScore != 0)
                         {
