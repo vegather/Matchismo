@@ -10,7 +10,7 @@
 #import "PlayingCardDeck.h"
 #import "CardMatchingGame.h"
 
-@interface CardGameViewController () <UIAlertViewDelegate>
+@interface CardGameViewController () <UIAlertViewDelegate, UIActionSheetDelegate>
 
 //Labels
 @property (weak, nonatomic) IBOutlet UILabel *flipsLabel;
@@ -78,16 +78,20 @@
         Card *card = [self.game cardAtIndex:[self.cardButtons indexOfObject:cardButton]];
         [cardButton setTitle:card.content forState:UIControlStateSelected];
         [cardButton setTitle:card.content forState:UIControlStateSelected|UIControlStateDisabled];
-        cardButton.selected = card.faceUp;
-        cardButton.enabled = !card.isUnplayable;
-        if (card.isUnplayable)
+        
+        UIImage *cardBackImage = [UIImage imageNamed:@"cardbacksmall.png"];
+        [cardButton setBackgroundImage:cardBackImage forState:UIControlStateHighlighted];
+        if (card.faceUp == NO)
         {
-            cardButton.alpha = 0.3;
+            [cardButton setBackgroundImage:cardBackImage forState:UIControlStateNormal];
         }
         else
         {
-            cardButton.alpha = 1.0;
+            [cardButton setBackgroundImage:nil forState:UIControlStateNormal];
         }
+        cardButton.selected = card.faceUp;
+        cardButton.enabled = !card.isUnplayable;
+        cardButton.alpha = card.isUnplayable ? 0.3 : 1.0;
     }
     self.messageFromComparisonLabel.text = self.game.messageFromMatch;
     self.scoreLabel.text = [NSString stringWithFormat:@"Score: %d", self.game.score];
@@ -134,12 +138,12 @@
 
 - (IBAction)startOverButtonPressed
 {
-    UIAlertView *startOverAlert = [[UIAlertView alloc]initWithTitle:nil
-                                                         message:@"Are you sure you want to Start Over? This will end your current game."
+    UIActionSheet *mySheet = [[UIActionSheet alloc]initWithTitle:@"Are you sure you want to start over? This will end your current game."
                                                         delegate:self
                                                cancelButtonTitle:@"Cancel"
-                                               otherButtonTitles:@"Start Over", nil];
-    [startOverAlert show];
+                                          destructiveButtonTitle:@"Start Over"
+                                               otherButtonTitles:nil];
+    [mySheet showInView:self.view];
 }
 
 - (IBAction)difficultyChanged:(UISegmentedControl *)sender
@@ -148,14 +152,19 @@
     [self startOver];
 }
 
+- (IBAction)setImageWhenHighlighted:(UIButton *)sender
+{
+    UIImage *cardBackImage = [UIImage imageNamed:@"cardbacksmall.png"];
+    [sender setBackgroundImage:cardBackImage forState:UIControlStateNormal];
+}
+
 #pragma mark - Delegate Methods
 
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    if (buttonIndex == 1)
+    if (buttonIndex == 0)
     {
         [self startOver];
     }
 }
-
 @end
