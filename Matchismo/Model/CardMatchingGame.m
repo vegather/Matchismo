@@ -251,8 +251,6 @@
     }
 }
 
-
-
 - (void)threeOutOfThreeGameFlipCardAtIndex:(NSUInteger)index
 {
     //Choses the card at a given index
@@ -264,47 +262,48 @@
         //We only want to do things if card is GETTING flipped up
         if (card.isFaceUp == NO)
         {
+            NSMutableArray *otherCards = [[NSMutableArray alloc]init];
             //Loop through all our cards
-            for (Card *otherCard in self.cards)
+            for (Card *cardCurrentlyBeingChecked in self.cards)
             {
                 //Check if there are other cards that are faced up
                 //and playable, in which case we might have a match
-                if (otherCard.isFaceUp && !otherCard.isUnplayable)
+                if (cardCurrentlyBeingChecked.isFaceUp && !cardCurrentlyBeingChecked.isUnplayable)
                 {
-                    //card compares itself to the otherCard and gives us
-                    //a score as a result of that
-                    int matchScore = [card match:@[otherCard] usingGameDifficulty:self.gameDifficulty];
-                    //If we have a match
-                    if (matchScore != 0)
+                    [otherCards addObject:cardCurrentlyBeingChecked];
+                    if ([otherCards count] == 2)
                     {
-                        card.unPlayable = YES;
-                        otherCard.unPlayable = YES;
-                        int scoreThisMatch = matchScore * MATCH_BONUS;
-                        self.score += scoreThisMatch;
-                        self.messageFromMatch =[NSString
-                                                stringWithFormat:@"Matched %@ and %@ for\r\n%d points.",
-                                                otherCard.content, card.content, scoreThisMatch];
+                        Card *firstOtherCard = otherCards[0];
+                        Card *secondOtherCard = otherCards[1];
+                        //card compares itself to the otherCard and gives us
+                        //a score as a result of that
+                        int matchScore = [card match:otherCards usingGameDifficulty:self.gameDifficulty];
+                        //If we have a match
+                        if (matchScore != 0)
+                        {
+                            card.unPlayable = YES;
+                            firstOtherCard.unPlayable = YES;
+                            secondOtherCard.unPlayable = YES;
+                            int scoreThisMatch = matchScore * MATCH_BONUS;
+                            self.score += scoreThisMatch;
+                            self.messageFromMatch =[NSString
+                                        stringWithFormat:@"Matched %@, %@ and %@ for %d points.",
+                                           firstOtherCard.content, secondOtherCard.content, card.content, scoreThisMatch];
+                        }
+                        //If the card didn't match
+                        else
+                        {
+                            firstOtherCard.faceUp = NO;
+                            secondOtherCard.faceUp = NO;
+                            self.score -= MISMATCH_PENALTY;
+                            self.messageFromMatch =[NSString
+                                        stringWithFormat:@"%@, %@ and %@ don't match. %d points penalty!",
+                                         secondOtherCard.content, firstOtherCard.content, card.content, MISMATCH_PENALTY];
+                        }
                     }
-                    //If the card didn't match
-                    else
-                    {
-                        otherCard.faceUp = NO;
-                        self.score -= MISMATCH_PENALTY;
-                        self.messageFromMatch =[NSString
-                                                stringWithFormat:@"%@ and %@ don't match.\r\n%d points penalty!",
-                                                otherCard.content, card.content, MISMATCH_PENALTY];
-                    }
-                    //When we have a match we don't care about the other cards
-                    //More than two playable cards can't be selected anyways.
-                    break;
                 }
-                //If the otherCard is not faced up, we want to say that the user
-                //has only flipped one card
-                else if (otherCard.isFaceUp == NO)
+                if ([otherCards count] < 2)
                 {
-                    //Will probably start of with this message, but if one of the
-                    //otherCards are faced up and playable, one of other messages
-                    //will be used.
                     self.messageFromMatch = [NSString
                                              stringWithFormat:@"Flipped up %@", card.content];
                 }
