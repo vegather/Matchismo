@@ -39,7 +39,7 @@
 {
     self.startOverButton.enabled = NO;
     self.startOverButton.alpha = 0.3;
-    self.messageFromComparisonLabel.text = @"Match 2 out of 3 cards.";
+    self.messageFromComparisonLabel.text = @"Match 2 out of 2 cards.";
 }
 
 #pragma mark - Getter
@@ -108,13 +108,9 @@
     self.startOverButton.alpha = 0.3;
     if (self.difficultyChanger.selectedSegmentIndex == 0)
     {
-        self.messageFromComparisonLabel.text = @"Match 2 out of 3 cards.";
-    }
-    else if (self.difficultyChanger.selectedSegmentIndex == 1)
-    {
         self.messageFromComparisonLabel.text = @"Match 2 out of 2 cards.";
     }
-    else if (self.difficultyChanger.selectedSegmentIndex == 2)
+    else if (self.difficultyChanger.selectedSegmentIndex == 1)
     {
         self.messageFromComparisonLabel.text = @"Match 3 out of 3 cards.";
     }

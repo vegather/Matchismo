@@ -309,7 +309,6 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <segments>
                                     <segment title="Easy"/>
-                                    <segment title="Medium"/>
                                     <segment title="Hard"/>
                                 </segments>
                                 <connections>
