@@ -29,7 +29,7 @@
 //Initializer that draws a random card from a deck and puts it in
 //internal stack of cards.
 - (id)initWithCardCount:(NSUInteger)count
-           withDifficulty:(int)currentDifficulty
+         withDifficulty:(int)currentDifficulty
               usingDeck:(Deck *)deck
 {
     self = [super init];
